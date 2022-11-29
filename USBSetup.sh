@@ -23,7 +23,7 @@ read hubmake
 if [ $hubmake != "myhub" ]
 then
   echo "hub not supported"
-  end
+  exit
 fi
 
 echo "how many ports are on the hub?"
