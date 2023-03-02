@@ -27,12 +27,13 @@ for device in iter(monitor.poll, None):
     if device.subsystem == 'usb':
         if device.action == 'bind':
             if device.device_type == 'usb_interface':
-                path = device.device_path.split("/")[-1]
-                f.write('SUBSYSTEM==\"tty\", KERNELS==\"%s", SYMLINK+=\"Cell%s\"' % (path, cell_count))
-                f.write('\n')
-                #print('SUBSYSTEM==\"tty\", KERNELS==\"%s", SYMLINK+=\"Cell%s\"' % (path, cell_count))
-                print('Found cell %s ' %(cell_count))
-                cell_count += 1
+                if device.driver != 'hub':
+                    path = device.device_path.split("/")[-1]
+                    f.write('SUBSYSTEM==\"tty\", KERNELS==\"%s", SYMLINK+=\"Cell%s\"' % (path, cell_count))
+                    f.write('\n')
+                    #print('SUBSYSTEM==\"tty\", KERNELS==\"%s", SYMLINK+=\"Cell%s\"' % (path, cell_count))
+                    print('Found cell %s ' %(cell_count))
+                    cell_count += 1
 
 f.close()
 print('New Rules!')
