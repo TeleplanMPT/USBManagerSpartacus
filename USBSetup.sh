@@ -7,7 +7,7 @@ timeout -s SIGTERM 5s udevadm monitor --subsystem-match="usb" -k > add
 
 USBstring=`more add | grep add | grep :1.0 | head -1`
 
-#echo $USBstring
+echo $USBstring
 
 #regstr='([^*\/]+$)'
 
@@ -17,6 +17,7 @@ regstr='^.*[\/](.+?)\:'
 
 USBstring=${BASH_REMATCH[1]}
 
+echo $USBstring
 echo "What is the make of the hub?"
 read hubmake
 
