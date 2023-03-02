@@ -1,12 +1,13 @@
 import pyudev
-import os
+import os, os.path
 import time
 
 context = pyudev.Context()
 monitor = pyudev.Monitor.from_netlink(context)
-total_cells = 2
+total_cells = 0
 cell_count = 0
-os.remove("/etc/udev/rules.d/99-usb-serial.rules")
+if os.path.exists("/etc/udev/rules.d/99-usb-serial.rules"):
+    os.remove("/etc/udev/rules.d/99-usb-serial.rules")
 
 while True:
     try:
@@ -17,7 +18,7 @@ while True:
     else:
         break
 
-print('Plug the cells in, in order:')
+print('Plug the cells in, in order, starting at cell 0:')
 f = open("/etc/udev/rules.d/99-usb-serial.rules", "a")
 
 for device in iter(monitor.poll, None):
